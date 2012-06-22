@@ -58,3 +58,13 @@ treeDepth Empty = 0
 treeDepth (Node a left right) = 1 + max (treeDepth left) (treeDepth right)
 
 
+
+splitBySpaces [] = []
+splitBySpaces (' ':afterSpace) = splitBySpaces afterSpace
+splitBySpaces cs =  
+    let isSpace c = c == ' ' 
+        (beforeSpace, fromSpace)  = break isSpace cs
+    in  beforeSpace: case fromSpace of 
+        (' ':afterSpace) -> (splitBySpaces afterSpace)
+        _ -> []
+
