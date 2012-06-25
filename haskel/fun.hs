@@ -68,3 +68,20 @@ splitBySpaces cs =
         (' ':afterSpace) -> (splitBySpaces afterSpace)
         _ -> []
 
+
+
+transposeText cs = transposeLists ([], lines cs) 
+transposeLists (afterTr, beforeTr)
+    | hasContent beforeTr = (transposeLists (afterTr ++ [multiHead beforeTr], multiTail beforeTr))
+    | otherwise = (afterTr, []);
+
+multiTail [] = [];
+multiTail ([]:ls) = []:(multiTail ls)
+multiTail (l:ls) = (tail l):(multiTail ls)
+multiHead [] = [];
+multiHead ([]:ls) = ' ':(multiHead ls)
+multiHead (l:ls) = (head l):(multiHead ls)
+hasContent [] = False;
+hasContent ([]:ls) = hasContent ls;
+hasContent (l:ls) = True;
+
