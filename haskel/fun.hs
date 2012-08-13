@@ -1,4 +1,5 @@
 import Data.List
+import Data.Char (digitToInt)
 
 add a b = a+b
 
@@ -84,4 +85,9 @@ multiHead (l:ls) = (head l):(multiHead ls)
 hasContent [] = False;
 hasContent ([]:ls) = hasContent ls;
 hasContent (l:ls) = True;
+
+
+asInt ('-':xs) = -asInt xs
+asInt xs = foldl collect 0 xs 
+    where collect acc el = 10*acc + digitToInt el;
 
