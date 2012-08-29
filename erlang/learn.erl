@@ -3,6 +3,7 @@
 -export([filterLTE/2]).
 -export([concatLists/1, reverse/1, flatten/1]).
 -export([concatTwo/2]).
+-export([mergeSort/1]).
 
 sum(N) when N>0 -> N+sum(N-1);
 sum(_) -> 0.
@@ -62,3 +63,19 @@ flatten([Head|Tail]) when is_list(Head) ->
 flatten([Head|Tail]) ->
 	[Head |flatten(Tail)].
 
+mergeSort([]) ->
+	[];
+mergeSort([Elm]) ->
+	[Elm];
+mergeSort([Elm1, Elm2]) when Elm1 > Elm2 ->
+	[Elm2, Elm1];
+mergeSort([Elm1, Elm2]) ->
+	[Elm1, Elm2];
+mergeSort(List) ->
+	Parts = lists:split(length(List) div 2, List),
+	orderTwo(mergeSort(element(1, Parts)), mergeSort(element(2, Parts))).	
+orderTwo([H1|T1], [H2|T2]) when H1 < H2 ->
+	[H1|T1] ++ [H2|T2];
+orderTwo([H1|T1], [H2|T2]) ->
+	[H2|T2] ++ [H1|T1].
+%% TODO optimize and shorten sorting
