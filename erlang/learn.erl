@@ -3,7 +3,7 @@
 -export([filterLTE/2]).
 -export([concatLists/1, reverse/1, flatten/1]).
 -export([concatTwo/2]).
--export([mergeSort/1]).
+-export([mergeSort/1, mergeLists/3]).
 
 sum(N) when N>0 -> N+sum(N-1);
 sum(_) -> 0.
@@ -72,10 +72,19 @@ mergeSort([Elm1, Elm2]) when Elm1 > Elm2 ->
 mergeSort([Elm1, Elm2]) ->
 	[Elm1, Elm2];
 mergeSort(List) ->
+%TODO avoid using list length
 	Parts = lists:split(length(List) div 2, List),
-	orderTwo(mergeSort(element(1, Parts)), mergeSort(element(2, Parts))).	
-orderTwo([H1|T1], [H2|T2]) when H1 < H2 ->
-	[H1|T1] ++ [H2|T2];
-orderTwo([H1|T1], [H2|T2]) ->
-	[H2|T2] ++ [H1|T1].
-%% TODO optimize and shorten sorting
+	Part1 = mergeSort(element(1, Parts)),
+	Part2 = mergeSort(element(2, Parts)),
+	mergeLists([], Part1, Part2).
+mergeLists(L, [H1|T1], [H2|T2]) when H1<H2 ->
+	mergeLists(L++[H1], T1, [H2|T2]);
+mergeLists(L, [H1|T1], [H2|T2]) ->
+	mergeLists(L++[H2], [H1|T1], T2);
+mergeLists(L, L1, []) ->
+	L ++ L1;
+mergeLists(L, [], L2) ->
+	L ++ L2.
+
+
+
