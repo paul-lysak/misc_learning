@@ -4,6 +4,7 @@
 -export([concatLists/1, reverse/1, flatten/1]).
 -export([concatTwo/2]).
 -export([mergeSort/1, mergeLists/3]).
+-export([quickSort/1, splitByValue/4]). 
 
 sum(N) when N>0 -> N+sum(N-1);
 sum(_) -> 0.
@@ -86,5 +87,21 @@ mergeLists(L, L1, []) ->
 mergeLists(L, [], L2) ->
 	L ++ L2.
 
+
+quickSort([]) -> 
+	[];
+quickSort([E]) ->
+	[E];
+quickSort([H|T]) ->
+	Parts = splitByValue(H, [], [], T),
+	quickSort(element(1, Parts)) ++ [H] ++ quickSort(element(2, Parts)).
+splitByValue(V, Less, More, [H|L]) ->
+	if H<V ->
+		splitByValue(V, [H|Less], More, L);
+	true ->
+		splitByValue(V, Less, [H|More], L)
+	end;
+splitByValue(_V, Less, More, []) ->
+	{Less, More}.
 
 
