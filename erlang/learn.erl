@@ -5,6 +5,7 @@
 -export([concatTwo/2]).
 -export([mergeSort/1, mergeLists/3]).
 -export([quickSort/1, splitByValue/4]). 
+-export([prepareIndex/1]).
 
 sum(N) when N>0 -> N+sum(N-1);
 sum(_) -> 0.
@@ -104,4 +105,15 @@ splitByValue(V, Less, More, [H|L]) ->
 splitByValue(_V, Less, More, []) ->
 	{Less, More}.
 
-
+prepareIndex([]) ->
+	[];
+prepareIndex([H|T]) ->
+	prepareIndex([], {H,H}, T).
+prepareIndex(Collected, Pending, []) ->
+	Collected ++ [Pending];
+prepareIndex(Collected, Pending, [H|T]) ->
+	Prev = element(2, Pending), 
+	if
+		(Prev == H-1) or (Prev == H) -> prepareIndex(Collected, {element(1, Pending), H}, T);
+		true -> prepareIndex(Collected ++ [Pending], {H, H}, T)
+	end.
