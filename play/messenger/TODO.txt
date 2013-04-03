@@ -1,0 +1,41 @@
+Stage 0 
+- server side
+ - create DB schema
+  - organize it all
+  - table for users
+ - connect to DB
+ - set up some ORM (Slick?)
+ - REST API
+  - sign up
+  - log in
+- client side
+ - attach AngularJS
+ - page routing
+ - signup page
+ - login page
+
+Stage 1
+- server side
+ - REST API
+  - get messages list for person
+  - create message
+- client side
+ - messages list page
+ - write message page
+  
+Stage 2
+- server side
+ - security
+  - prevent user from reading other users messages
+ - REST API
+  - get users list
+- client side
+ - admin zone
+  - users list
+
+Stage 3
+- server side
+ - separate services layer
+ - use non-relational DB to store messages
+ - capture additional info about users in DB
+- automatic environment for integration tests
