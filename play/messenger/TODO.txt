@@ -1,8 +1,5 @@
 Stage 0 
 - server side
- - create DB schema
-  - organize it all
-  - table for users
  - connect to DB
  - set up some ORM (Slick?)
  - REST API
@@ -33,9 +30,16 @@ Stage 2
  - admin zone
   - users list
 
-Stage 3
+Stage 3 
+- server side
+ - integration tests
+ 
+Stage 4
 - server side
  - separate services layer
  - use non-relational DB to store messages
  - capture additional info about users in DB
+ - encrypt user password 
 - automatic environment for integration tests
+- move DB password/username out of repository
+- different DB in different environment
