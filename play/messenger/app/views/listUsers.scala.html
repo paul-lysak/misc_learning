@@ -1,4 +1,4 @@
-@(users: List[User], userForm: Form[(String, String)])
+@(users: List[User], userForm: Form[User])
 
 @main("Users List") { 
 		
@@ -12,6 +12,7 @@ Total: @users.size users
             <tr>
 				<td>@user.id</td>
 				<td>@user.name</td>
+				<td>@helper.form(routes.Application.deleteUser(user.id)) {<input type="submit" value="Delete">} </td>
             </tr>
         }
 

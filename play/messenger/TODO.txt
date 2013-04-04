@@ -1,6 +1,6 @@
 Stage 0 
+- think about login procedure
 - server side
- - map form to object instead of tuple
  - REST API
   - sign up
   - log in

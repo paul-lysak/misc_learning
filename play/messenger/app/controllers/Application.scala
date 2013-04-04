@@ -5,14 +5,15 @@ import play.api.mvc._
 
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.Constraints._
 
 import models.User
 
 object Application extends Controller {
-	val userForm = Form(//TODO map to User object instead of tuple
-	  tuple("name" -> nonEmptyText,
-	  "password" -> nonEmptyText)
-	)
+	val userForm = Form(
+	  mapping("name" -> text.verifying(nonEmpty),
+	  "password" -> text.verifying(nonEmpty))
+	((name, password) => User(0, name, password))(user => Option((user.name, user.password))))
   
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
@@ -32,10 +33,15 @@ object Application extends Controller {
   def newUser = Action { implicit request =>
 	  userForm.bindFromRequest.fold(
 		errors => BadRequest(views.html.listUsers(User.getAll(), errors)),
-		userTuple => {
-		  User.create(userTuple._1, userTuple._2) //TODO use mapped object
+		user => {
+		  User.create(user)
 		  Redirect(routes.Application.listUsers)
 		}
 	  )
+  }
+  
+  def deleteUser(id: Int) = Action {
+	User.delete(id)
+	Redirect(routes.Application.listUsers)
   }
 }

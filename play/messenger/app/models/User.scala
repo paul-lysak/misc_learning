@@ -24,12 +24,20 @@ object User {
     }
   }
   
-  def create(name: String, password: String) = {
+  def create(user: User) = {
 	 DB.withConnection { implicit c =>
 		SQL("insert into APP_USERS (name, password) values ({name}, {password})").on(
-		  'name -> name,
-		  'password -> password
+		  'name -> user.name,
+		  'password -> user.password
 		).executeUpdate()
 	 }  
+  }
+  
+  def delete(id: Int) = {
+	 DB.withConnection { implicit c =>
+		SQL("delete from APP_USERS WHERE id={id}").on(
+		  'id -> id
+		).executeUpdate()
+	 }    
   }
 }
