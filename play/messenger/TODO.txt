@@ -1,7 +1,6 @@
 Stage 0 
 - server side
- - connect to DB
- - set up some ORM (Slick?)
+ - map form to object instead of tuple
  - REST API
   - sign up
   - log in

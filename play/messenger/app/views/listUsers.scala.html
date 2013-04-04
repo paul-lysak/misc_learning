@@ -1,0 +1,24 @@
+@(users: List[User], userForm: Form[(String, String)])
+
+@main("Users List") { 
+		
+Total: @users.size users
+ <table>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+		</tr>		
+        @users.map { user =>
+            <tr>
+				<td>@user.id</td>
+				<td>@user.name</td>
+            </tr>
+        }
+
+	@helper.form(routes.Application.newUser) {
+        @helper.inputText(userForm("name"))<br/>
+        @helper.inputPassword(userForm("password"))<br/>
+        <input type="submit" value="Create">        
+    }
+</table>
+}
