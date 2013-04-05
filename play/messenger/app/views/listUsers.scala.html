@@ -1,4 +1,4 @@
-@(users: List[User], userForm: Form[User])
+@(users: List[User], regForm: Form[(String, String)])
 
 @main("Users List") { 
 		
@@ -17,8 +17,8 @@ Total: @users.size users
         }
 
 	@helper.form(routes.Application.newUser) {
-        @helper.inputText(userForm("name"))<br/>
-        @helper.inputPassword(userForm("password"))<br/>
+        @helper.inputText(regForm("name"))<br/>
+        @helper.inputPassword(regForm("password"))<br/>
         <input type="submit" value="Create">        
     }
 </table>

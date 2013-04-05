@@ -6,15 +6,14 @@ import play.api.Play.current
 import anorm._
 import anorm.SqlParser._
 
-case class User(id: Int, name: String, password: String)
+case class User(id: Int, name: String)
 
 object User {
 
   val structure = {
     get[Int]("id") ~
-    get[String]("name") ~
-    get[String]("password") map {
-      case id~name~password => User(id, name, password)
+    get[String]("name") map {
+      case id~name => User(id, name)
     }
   }
   
@@ -24,13 +23,18 @@ object User {
     }
   }
   
-  def create(user: User) = {
-	 DB.withConnection { implicit c =>
+  def create(user: User, password: String): Option[User] = {
+	 DB.withTransaction { implicit c =>
 		SQL("insert into APP_USERS (name, password) values ({name}, {password})").on(
 		  'name -> user.name,
-		  'password -> user.password
+		  'password -> password
 		).executeUpdate()
-	 }  
+		//TODO nice handling of duplicate names
+		
+		SQL("select * from APP_USERS where name={name}").on(
+			'name->user.name
+		).as(User.structure.singleOpt)
+	 }	 
   }
   
   def delete(id: Int) = {
@@ -39,5 +43,21 @@ object User {
 		  'id -> id
 		).executeUpdate()
 	 }    
+  }
+  
+  def checkCredentials(name: String, password: String): Option[User] = {
+	DB.withConnection { implicit connection =>
+	  SQL("select * from APP_USERS where name={name} and password={password}").on(
+		'name->name, 'password -> password
+		).as(User.structure.singleOpt)
+	}  
+  }
+  
+  def getById(id: Int): Option[User] = {
+	DB.withConnection { implicit connection =>
+	  SQL("select * from APP_USERS where id={id}").on(
+		'id->id
+		).as(User.structure.singleOpt)
+	}
   }
 }

@@ -1,23 +1,11 @@
-Stage 0 
-- think about login procedure
-- server side
- - REST API
-  - sign up
-  - log in
-- client side
- - attach AngularJS
- - page routing
- - signup page
- - login page
-
 Stage 1
 - server side
  - REST API
   - get messages list for person
   - create message
 - client side
- - messages list page
- - write message page
+ - write message
+ - messages list
   
 Stage 2
 - server side
@@ -25,9 +13,6 @@ Stage 2
   - prevent user from reading other users messages
  - REST API
   - get users list
-- client side
- - admin zone
-  - users list
 
 Stage 3 
 - server side

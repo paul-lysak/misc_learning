@@ -1,0 +1,25 @@
+@(message: String = "")
+
+@scripts = {
+	<script src="@routes.Assets.at("javascripts/ajax_app.js")" type="text/javascript"></script>
+}
+
+@main("AJAX Play Messenger", scripts) { 
+	Messenger system: @message<br/>
+	
+	<div id="loginArea"></div>
+	
+	<div id="templatesContainer" class="hidden">
+		<div id="loginBoxTemplate">
+			Username: <input type="text" class="username" />
+			Password: <input type="password" class="password" />
+			<input type="button" class="loginButton" value="Log in"/>
+			<input type="button" class="signupButton" value="Sign up"/>
+		</div>
+		<div id="logoutBoxTemplate">
+			Logged in as: <span class="username"></span>
+			<input type="button" class="logoutButton" value="Log out"/>			
+		</div>
+	</div>
+	
+}
