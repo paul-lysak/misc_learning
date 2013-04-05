@@ -2,9 +2,7 @@ Stage 1
 - server side
  - REST API
   - get messages list for person
-  - create message
 - client side
- - write message
  - messages list
   
 Stage 2

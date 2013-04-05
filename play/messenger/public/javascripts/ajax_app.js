@@ -1,6 +1,6 @@
 $(function() {
 	var UNAUTHORIZED = 401;
-	
+
 	function LoginArea(element) {
 		var that = this	
 		this.element = element;
@@ -11,7 +11,7 @@ $(function() {
 		element.append(logoutBox);
 		
 		$.get("/ajax/currentUser").then(function(user) {
-			console.log("got current user", user);
+//			console.log("got current user", user);
 			onLogIn(user);
 		}, function(result) {
 			if(result.status == UNAUTHORIZED)  {
@@ -38,7 +38,6 @@ $(function() {
 		
 		loginBox.find(".signupButton").click(function() {
 			$.post("/ajax/signup", getCredentials()).then(function(user) {
-				console.log("signup", user);
 				onLogIn(user);
 			}, function(result) {
 				alert("Failed to sign up: "+result.responseText);
@@ -49,7 +48,7 @@ $(function() {
 			$.post("/ajax/logout");
 			logoutBox.addClass("hidden");
 			loginBox.removeClass("hidden");
-			//TODO hide another application elements
+			$(element).trigger("custom:logout");
 		});
 		
 		
@@ -58,8 +57,51 @@ $(function() {
 			loginBox.addClass("hidden");
 			logoutBox.find(".username").html(user.name);
 			logoutBox.removeClass("hidden");
+			$(element).trigger("custom:login", [user]);
+			
 		}
 	}//end LoginArea
 	
-	var loginArea = new LoginArea($("#loginArea"));
+	function MessageForm(element, user) {
+		var that = this;
+		var messageForm = $("#messageFormTemplate").clone();
+		element.append(messageForm);
+		messageForm.find(".senderName").html(user.name);
+		var receiverSelect = messageForm.find(".receiverName");
+		var messageArea = messageForm.find(".messageText");
+
+		$.get("/ajax/users").then(function(users) {
+			for(i in users) {
+				if(!users.hasOwnProperty(i) || users[i].id == user.id) continue;
+				receiverSelect.append("<option value='"+users[i].id+"'>"+users[i].name+"</option>");
+			}
+		});
+
+		messageForm.find(".sendMessageButton").click(function() {
+			var receiver = receiverSelect.val();	
+			var message = messageArea.val();
+			console.log("send", user, receiver, message);
+			$.post("/ajax/message/send/"+user.id+"/"+receiver,
+				message).then(function(response) {
+					alert("Message sent");
+					messageArea.val("");
+				}, function(err) {
+					alert("Failed to send: "+err);
+				});
+		});
+	}//end MessageForm
+
+	var loginArea = $("#loginArea")
+	new LoginArea(loginArea);
+
+	loginArea.on("custom:login", function(event, user) {
+		console.log("event: login", user);
+		new MessageForm($("#messageForm"), user);
+	});
+
+	loginArea.on("custom:logout", function(event) {
+		console.log("event: logout");
+		$("#messageForm").html("");
+	});
+	
 })

@@ -8,6 +8,8 @@
 	Messenger system: @message<br/>
 	
 	<div id="loginArea"></div>
+	<div id="messageForm"></div>
+	<div id="messagesList"></div>
 	
 	<div id="templatesContainer" class="hidden">
 		<div id="loginBoxTemplate">
@@ -19,6 +21,13 @@
 		<div id="logoutBoxTemplate">
 			Logged in as: <span class="username"></span>
 			<input type="button" class="logoutButton" value="Log out"/>			
+		</div>
+
+		<div id="messageFormTemplate">
+			From: <span class="senderName"></span><br/>
+			To: <select class="receiverName"></select><br/>
+			Message: <textarea class="messageText"></textarea><br/>
+			<input type="button" class="sendMessageButton" value="Send message"/>
 		</div>
 	</div>
 	

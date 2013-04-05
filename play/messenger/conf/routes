@@ -9,6 +9,7 @@ GET     /ajaxIndex                  controllers.Application.ajaxIndex
 
 # User management
 GET     /users                  	controllers.Application.listUsers
+GET     /ajax/users                 controllers.Application.listUsersAjax
 POST    /users                  	controllers.Application.newUser
 POST    /users/:id/delete          	controllers.Application.deleteUser(id: Int)
 
@@ -20,3 +21,8 @@ GET		/ajax/currentUser		controllers.Application.getCurrentUser
 POST	/ajax/login				controllers.Application.logIn
 POST	/ajax/logout			controllers.Application.logOut
 POST	/ajax/signup			controllers.Application.signUp
+
+
+# Messaging
+POST    /ajax/message/send/:fromId/:toId     	controllers.Application.sendMessage(fromId: Int, toId: Int)
+# TODO is it possible to pass POST body as action parameter?

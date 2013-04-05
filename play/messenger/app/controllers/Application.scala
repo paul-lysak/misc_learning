@@ -20,6 +20,7 @@ import play.api.libs.json.util._
 import play.api.libs.functional.syntax._
 
 import models.User
+import models.Message
 
 object Application extends Controller {
 	val STATUS_OK = "OK"
@@ -78,7 +79,12 @@ object Application extends Controller {
 	User.delete(id)
 	Redirect(routes.Application.listUsers)
   }
-  
+
+//TODO make available only for authenticated
+  def listUsersAjax = Action {
+  	Ok(Json.toJson(User.getAll()));
+  }
+
  //------
  // Authentication
  //------
@@ -120,4 +126,16 @@ object Application extends Controller {
 		}
 	  )
   }
+
+ //------
+ // Messaging
+ //------
+//TODO wrap security around this method to ensure that user that sends a message is logged in
+ def sendMessage(fromId: Int, toId:Int) = Action(parse.tolerantText) { implicit request =>
+ 	val messageText = request.body
+	println("got message: "+messageText);
+ 	Message.send(fromId, toId, messageText);	
+ 	Ok("message sent");
+ }
+
 }
