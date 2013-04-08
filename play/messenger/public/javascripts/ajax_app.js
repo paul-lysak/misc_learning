@@ -90,18 +90,48 @@ $(function() {
 				});
 		});
 	}//end MessageForm
-
+	
+	function MessageList(name, url, element, user) {
+		var messageList = $("#messageListTemplate").clone();
+		var rowTemplate = $("#messageListItemTemplate");
+		
+		element.append(messageList);
+		messageList.find(".boxName").html(name);
+		var messageTable = messageList.find(".messagesTable");
+		function refresh() {
+			$.get(url+"/"+user.id).then(function(messages) {
+				messageTable.find(".messageItem").remove();
+				$.each(messages, function(key, message) {
+					var row = rowTemplate.clone();
+					row.find(".from").html(message.sender.id);
+					row.find(".to").html(message.receiver.id);
+					row.find(".body").html(message.body);					
+					row.removeAttr("id");
+					messageTable.append(row);
+				});
+			});
+		}
+		
+		messageList.find(".refreshMessages").click(refresh);
+		
+		refresh();
+	}
+	
 	var loginArea = $("#loginArea")
 	new LoginArea(loginArea);
 
 	loginArea.on("custom:login", function(event, user) {
 		console.log("event: login", user);
 		new MessageForm($("#messageForm"), user);
+		new MessageList("Inbox", "/ajax/message/inbox", $("#messageInbox"), user);
+		new MessageList("Outbox", "/ajax/message/outbox", $("#messageOutbox"), user);
 	});
 
 	loginArea.on("custom:logout", function(event) {
 		console.log("event: logout");
 		$("#messageForm").html("");
+		$("#messageInbox").html("");
+		$("#messageOutbox").html("");
 	});
 	
 })

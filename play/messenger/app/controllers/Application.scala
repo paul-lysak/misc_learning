@@ -38,7 +38,14 @@ object Application extends Controller {
   val userWrite = ((__ \ "id").write[Int] and
 		(__ \ "name").write[String])(unlift(User.unapply));
   implicit val UserFormat: Format[User] = Format (userRead, userWrite);
- 
+
+//  val messageRead = ((__ \ "id").read[Int] and
+//		(__ \ "body").read[String])(Message.apply _);
+  implicit val messageWrite = ((__ \ "id").write[Int] and
+		(__ \ "sender").write[User] and
+		(__ \ "receiver").write[User] and
+		(__ \ "body").write[String])(unlift(Message.unapply));
+//  implicit val MessageFormat: Format[Message] = Format (messageRead, messageWrite);
  
  //------
  //Index pages
@@ -138,4 +145,14 @@ object Application extends Controller {
  	Ok("message sent");
  }
 
+ def getInbox(userId: Int) = Action {
+	val messages = Message.getInbox(userId);
+	Ok(Json.toJson(messages));
+ }
+ 
+ def getOutbox(userId: Int) = Action {
+	val messages = Message.getOutbox(userId);
+	Ok(Json.toJson(messages));
+ }
+ 
 }

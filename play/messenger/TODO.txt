@@ -1,16 +1,12 @@
-Stage 1
-- server side
- - REST API
-  - get messages list for person
-- client side
- - messages list
-  
-Stage 2
+Stage 2.1
+- multiple environments support (DB credentials)
+- deploy on Heroku
+
+Stage 2.2
 - server side
  - security
+  - prevent user from sending messages from other user account
   - prevent user from reading other users messages
- - REST API
-  - get users list
 
 Stage 3 
 - server side
@@ -25,3 +21,4 @@ Stage 4
 - automatic environment for integration tests
 - move DB password/username out of repository
 - different DB in different environment
+- try out javascript routers

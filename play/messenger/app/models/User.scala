@@ -9,17 +9,15 @@ import anorm.SqlParser._
 case class User(id: Int, name: String)
 
 object User {
-
-  val structure = {
-    get[Int]("id") ~
-    get[String]("name") map {
+  def structure(prefix: String = "") =
+    int(prefix+"id") ~
+    str(prefix+"name") map {
       case id~name => User(id, name)
-    }
-  }
+    }  	
   
   def getAll(): List[User] = {
     DB.withConnection { implicit connection =>
-      SQL("select * from APP_USERS").as(User.structure *)
+      SQL("select * from APP_USERS").as(User.structure() *)
     }
   }
   
@@ -33,7 +31,7 @@ object User {
 		
 		SQL("select * from APP_USERS where name={name}").on(
 			'name->user.name
-		).as(User.structure.singleOpt)
+		).as(User.structure().singleOpt)
 	 }	 
   }
   
@@ -49,7 +47,7 @@ object User {
 	DB.withConnection { implicit connection =>
 	  SQL("select * from APP_USERS where name={name} and password={password}").on(
 		'name->name, 'password -> password
-		).as(User.structure.singleOpt)
+		).as(User.structure().singleOpt)
 	}  
   }
   
@@ -57,7 +55,7 @@ object User {
 	DB.withConnection { implicit connection =>
 	  SQL("select * from APP_USERS where id={id}").on(
 		'id->id
-		).as(User.structure.singleOpt)
+		).as(User.structure().singleOpt)
 	}
   }
 }

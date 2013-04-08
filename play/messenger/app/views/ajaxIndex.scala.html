@@ -7,9 +7,10 @@
 @main("AJAX Play Messenger", scripts) { 
 	Messenger system: @message<br/>
 	
-	<div id="loginArea"></div>
-	<div id="messageForm"></div>
-	<div id="messagesList"></div>
+	<div id="loginArea"></div><br/>
+	<div id="messageForm"></div><br/>
+	<div id="messageInbox"></div><br/>
+	<div id="messageOutbox"></div><br/>
 	
 	<div id="templatesContainer" class="hidden">
 		<div id="loginBoxTemplate">
@@ -29,6 +30,22 @@
 			Message: <textarea class="messageText"></textarea><br/>
 			<input type="button" class="sendMessageButton" value="Send message"/>
 		</div>
+		
+		<div id="messageListTemplate">
+			<span class="boxName"></span>
+			<input type="button" class="refreshMessages" value="Refresh"/><br/>
+			<table class="messagesTable">
+				<tr>
+					<th>From</th><th>To</th><th>Body</th>
+				</tr>
+			</table>
+		</div>
+		
+		<table>
+			<tr id="messageListItemTemplate" class="messageItem">
+				<td class="from"></td><td class="to"></td><td class="body"></td>
+			</tr>
+		</table>
 	</div>
 	
 }

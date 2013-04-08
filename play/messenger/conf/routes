@@ -26,3 +26,5 @@ POST	/ajax/signup			controllers.Application.signUp
 # Messaging
 POST    /ajax/message/send/:fromId/:toId     	controllers.Application.sendMessage(fromId: Int, toId: Int)
 # TODO is it possible to pass POST body as action parameter?
+GET		/ajax/message/inbox/:userId		controllers.Application.getInbox(userId: Int)
+GET		/ajax/message/outbox/:userId	controllers.Application.getOutbox(userId: Int)
