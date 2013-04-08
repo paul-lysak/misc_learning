@@ -3,3 +3,10 @@ Messenger: sample application to learn Play! 2
 
 Messenger application.
 
+Heroku:
+
+http://stackoverflow.com/questions/11510256/deploy-a-play-2-0-2-application-on-heroku
+heroku config:add BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-scala.git --app your_app_name
+
+http://stackoverflow.com/questions/7539382/how-can-i-deploy-from-a-git-subdirectory
+git subtree push --prefix play/messenger heroku master

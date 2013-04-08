@@ -1,6 +1,8 @@
 Stage 2.1
-- multiple environments support (DB credentials)
 - deploy on Heroku
+ - connect to DB
+ - write detailed manual
+- multiple environments support (DB credentials)
 
 Stage 2.2
 - server side
