@@ -27,13 +27,20 @@ http://www.betaful.com/2011/01/i-love-git-subtree/
 http://stackoverflow.com/questions/7539382/how-can-i-deploy-from-a-git-subdirectory
 	git subtree push --prefix play/messenger heroku master
 or just use messenger_heroku_deploy.sh from learning project root
+If screwed up and then fixed local version then use messenger_heroku_force_deploy.sh
 
 See running instances:
-heroku ps
-
+$ heroku ps
 See log:
-
-heroku logs
-
+$ heroku logs
 Set instances number:
-	heroku ps:scale web=1
+$ heroku ps:scale web=1
+Open application in browser:
+$ heroku open
+	
+May need to set up DATABASE_URL manually (also may need to delete default DB):
+$ heroku addons:add heroku-postgresql:dev
+$ heroku config 
+(get variable name for following step)
+$ heroku pg:promote HEROKU_POSTGRESQL_RED_URL
+
