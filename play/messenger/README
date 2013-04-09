@@ -1,46 +1,7 @@
 Messenger: sample application to learn Play! 2
 ==============================================
 
-Messenger application.
+This application was written just for learning. It allows users to sign up, log into the system and log out of the system.
+Users can send text messages to each other and check their inbox/outbox.
 
-Heroku:
-
-http://stackoverflow.com/questions/11510256/deploy-a-play-2-0-2-application-on-heroku
-	heroku config:add BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-scala.git --app your_app_name
-
-add heroku remote 
-
-Set up keys. 
-
-	heroku keys
-
-generates some keys in Linux (in windows it failed), but due to some reason I can't use it. Added existing key with:
-
-	heroku keys:add ~/.ssh/id_rsa.pub 
-
-(linux only:)
-http://www.betaful.com/2011/01/i-love-git-subtree/
-	git clone https://github.com/apenwarr/git-subtree.git
-	cd git-subtree
-	sudo ./install.sh 
-
-http://stackoverflow.com/questions/7539382/how-can-i-deploy-from-a-git-subdirectory
-	git subtree push --prefix play/messenger heroku master
-or just use messenger_heroku_deploy.sh from learning project root
-If screwed up and then fixed local version then use messenger_heroku_force_deploy.sh
-
-See running instances:
-$ heroku ps
-See log:
-$ heroku logs
-Set instances number:
-$ heroku ps:scale web=1
-Open application in browser:
-$ heroku open
-	
-May need to set up DATABASE_URL manually (also may need to delete default DB):
-$ heroku addons:add heroku-postgresql:dev
-$ heroku config 
-(get variable name for following step)
-$ heroku pg:promote HEROKU_POSTGRESQL_RED_URL
 

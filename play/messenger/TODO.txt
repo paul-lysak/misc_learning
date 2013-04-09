@@ -1,7 +1,3 @@
-Stage 2.1
-- write Heroku manual
-- multiple environments support (DB credentials)
-
 Stage 2.2
 - server side
  - security
