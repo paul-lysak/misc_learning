@@ -1,7 +1,5 @@
 Stage 2.1
-- deploy on Heroku
- - connect to DB
- - write detailed manual
+- write Heroku manual
 - multiple environments support (DB credentials)
 
 Stage 2.2

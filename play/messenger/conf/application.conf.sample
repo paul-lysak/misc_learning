@@ -1,0 +1,12 @@
+# Sample file for local configuration on developer workstation
+#
+#
+
+include "common.conf"
+
+db.default.driver=org.postgresql.Driver
+db.default.url="jdbc:postgresql://localhost/messenger"
+db.default.user=username
+db.default.password="password"
+
+
