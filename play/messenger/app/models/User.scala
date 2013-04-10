@@ -6,7 +6,7 @@ import play.api.Play.current
 import anorm._
 import anorm.SqlParser._
 
-
+//TODO: use Option for id
 case class User(id: Int, name: String)
 
 object User {
