@@ -103,8 +103,8 @@ $(function() {
 				messageTable.find(".messageItem").remove();
 				$.each(messages, function(key, message) {
 					var row = rowTemplate.clone();
-					row.find(".from").html(message.sender.id);
-					row.find(".to").html(message.receiver.id);
+					row.find(".from").html(message.sender.name);
+					row.find(".to").html(message.receiver.name);
 					row.find(".body").html(message.body);					
 					row.removeAttr("id");
 					messageTable.append(row);

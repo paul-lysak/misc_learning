@@ -6,6 +6,7 @@ import play.api.Play.current
 import anorm._
 import anorm.SqlParser._
 
+
 case class User(id: Int, name: String)
 
 object User {

@@ -22,7 +22,7 @@ import play.api.libs.functional.syntax._
 import models.User
 import models.Message
 
-object Application extends Controller {
+object Application extends Controller with MySecured {
 	val STATUS_OK = "OK"
 	val STATUS_FAIL = "FAIL"
 	
@@ -137,22 +137,38 @@ object Application extends Controller {
  //------
  // Messaging
  //------
-//TODO wrap security around this method to ensure that user that sends a message is logged in
- def sendMessage(fromId: Int, toId:Int) = Action(parse.tolerantText) { implicit request =>
+ def sendMessage(fromId: Int, toId:Int) = IsOwner(fromId) (Action(parse.tolerantText) { implicit request =>
  	val messageText = request.body
 	println("got message: "+messageText);
  	Message.send(fromId, toId, messageText);	
  	Ok("message sent");
- }
+ })
 
- def getInbox(userId: Int) = Action {
+ def getInbox(userId: Int) = IsOwner(userId) (Action {
 	val messages = Message.getInbox(userId);
 	Ok(Json.toJson(messages));
- }
+ })
  
- def getOutbox(userId: Int) = Action {
+ def getOutbox(userId: Int) = IsOwner(userId) (Action {
 	val messages = Message.getOutbox(userId);
 	Ok(Json.toJson(messages));
- }
+ })
  
+}
+
+trait MySecured {
+  private def userIdStr(request: RequestHeader) = request.session.get("userId")
+  
+  /** 
+   * Action for owners
+   */  
+  def IsOwner[A](expectedUserId: Int)(a: Action[A]): Action[A] = {
+	Action(a.parser) {request =>		
+		userIdStr(request) match {
+			case Some(idStr) if(idStr.toInt == expectedUserId) => a(request)
+			case _ => Results.Forbidden
+		}
+	}
+  }
+    
 }
