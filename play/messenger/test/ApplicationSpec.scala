@@ -4,6 +4,8 @@ import org.specs2.mutable._
 
 import play.api.test._
 import play.api.test.Helpers._
+import play.api.db._
+import anorm._
 
 import models.User
 import models.Message
@@ -14,7 +16,7 @@ import models.Message
  * For more information, consult the wiki.
  */
 class ApplicationSpec extends Specification { //sequential
-   
+/*   
   "Application" should {
     "send 404 on a bad request" in {
       running(FakeApplication()) {
@@ -32,7 +34,22 @@ class ApplicationSpec extends Specification { //sequential
       }
     }	
   }
+*/
 
+	"It" should {
+	/*
+		"set up database" in {
+			implicit var app = FakeApplication()
+			DB.withConnection { implicit c =>
+			  val result = SQL("CREATE DATABASE INTEGRATION_TEST;").execute()    
+			  println("sql result="+result);
+			}
+			
+		}
+		*/
+		"do nothing" in {
+		}
+	}
 /*  
   "User DAO" should {
 	"get all users" in {

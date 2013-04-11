@@ -9,4 +9,9 @@ db.default.url="jdbc:postgresql://localhost/messenger"
 db.default.user=username
 db.default.password="password"
 
+test.db.default.driver=org.postgresql.Driver
+test.db.default.url="jdbc:postgresql://localhost/integration_test"
+test.db.default.user=username
+test.db.default.password="password"
 
+test.db.default.db_name=integration_test

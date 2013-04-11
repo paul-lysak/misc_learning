@@ -1,12 +1,8 @@
-Stage 3 
-- server side
- - integration tests
- 
-Stage 4
-- server side
- - separate services layer
- - use non-relational DB to store messages
- - capture additional info about users in DB
- - encrypt user password 
-- ?automatic environment for integration tests
+- move settings for integration_test DB creation to some config. Unite with settings for running integration tests.
+- separate services layer
+- use non-relational DB to store messages
+- capture additional info about users in DB
+- encrypt user password 
+- conditionally clean database
 - try out javascript routers
+- currently after integration tests need to restart Play shell to run application
