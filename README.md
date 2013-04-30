@@ -1,4 +1,5 @@
 misc_learning
 =============
 
-Code for learning
+Here I learn new technologies and do research.
+
