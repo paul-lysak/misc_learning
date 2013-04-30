@@ -1,4 +1,5 @@
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import org.specs2.mutable.Specification
 
 /**
@@ -12,7 +13,11 @@ class JsonTests extends Specification {
       |{"name": "Vasya", "surname": "Pupkin"}
     """.stripMargin
 
-  val mapper = new ObjectMapper
+  val mapper = {
+    val m = new ObjectMapper
+    m.registerModule(DefaultScalaModule)
+    m
+  }
 
   "It" should {
     "do the trick" in {
