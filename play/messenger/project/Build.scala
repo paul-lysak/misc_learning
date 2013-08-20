@@ -20,7 +20,7 @@ object ApplicationBuild extends Build {
 
    def setUpDatabase = {
    //TODO conditionally clean
-	executeIntegrationDbUpdate("DROP DATABASE INTEGRATION_TEST");
+//	executeIntegrationDbUpdate("DROP DATABASE INTEGRATION_TEST");
 	executeIntegrationDbUpdate("CREATE DATABASE INTEGRATION_TEST");
   }
   
@@ -42,7 +42,8 @@ object ApplicationBuild extends Build {
   
   def executeIntegrationDbUpdate(query: String) {
 	//TODO move out config
-	var res = executeUpdate("jdbc:postgresql://localhost/", "postgres", "1Qaz2Wsx", "org.postgresql.Driver", query);
+	var res = executeUpdate("jdbc:postgresql://localhost/", "dbadmin", "dbadmin", "org.postgresql.Driver", query);
+	//var res = executeUpdate("jdbc:postgresql://localhost/", "postgres", "1Qaz2Wsx", "org.postgresql.Driver", query);
   }
 
   def executeUpdate(conn_str: String, user: String, password: String, driver_class: String, query: String): Int = {
