@@ -16,4 +16,19 @@ object MacroContainer {
         println("macro - skip")
       }
     )
+
+  def logImpl(c: Context {type PrefixType = MyLogger})(msg: c.Expr[String]) = {
+    val t = c.enclosingClass.symbol
+    println("compile type="+t)
+//    c.prefix
+//    val t = c.prefix.staticType.typeSymbol.asClass
+    c.universe.reify({
+
+//      val t = c.unreifyTree(c.prefix.tree)
+//      println("actual type="+t);
+//      println("actual type2="+c.enclosingClass.symbol);
+      println("class="+c.prefix.splice.getClass().getName);
+      println(s"log: ${msg.splice}");
+    })
+    }
 }

@@ -20,4 +20,8 @@ class MsgPrinter(val enabled: Boolean) {
 
 }
 
+trait MyLogger {
+  def log(msg: String) = macro MacroContainer.logImpl
+}
+
 

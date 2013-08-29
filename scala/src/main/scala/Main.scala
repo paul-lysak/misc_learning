@@ -8,7 +8,13 @@ object Main {
   def main(args: Array[String]) {
     println("hi all")
 
-    MacroSample.runMsgPrinter
+//    MacroSample.runMsgPrinter
+
+    val lc1 = new LoggerChild1
+    val lc2 = new LoggerChild2
+    lc1.doStuff1
+    lc2.doStuff1
+    lc2.doStuff2
   }
 }
 
@@ -29,4 +35,14 @@ object MacroSample {
     println(s"buildMessage invoked for $msgHead")
     msgHead+"->msg_tail"
   }
+}
+
+class LoggerChild1 extends MyLogger {
+  def doStuff1 =
+    log("doStuff1 from LoggerChild1")
+}
+
+class LoggerChild2 extends LoggerChild1 {
+  def doStuff2 =
+    log("doStuff2 from LoggerChild2")
 }
