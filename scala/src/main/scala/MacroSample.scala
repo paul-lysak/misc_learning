@@ -13,6 +13,9 @@ object MacroSample {
 
     mp1.print(buildMessage("first_message"))
     mp2.print(buildMessage("second_message"))
+
+    mp1.conditionalPrint(buildMessage("first_messageC"))
+    mp2.conditionalPrint(buildMessage("second_messageC"))
   }
 
   def buildMessage(msgHead: String): String = {
@@ -34,7 +37,4 @@ class MsgPrinter(val enabled: Boolean) {
 
 }
 
-object MacroContainer {
-  //TODO
-  def condPrintImpl(c: Context)(msg: c.Expr[String]) = ??? //<[ print(msg)]>
-}
+
