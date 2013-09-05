@@ -17,7 +17,20 @@ object MacroContainer {
       }
     )
 
-  def logImpl(c: Context {type PrefixType = MyLogger})(msg: c.Expr[String]) = {
+  def logImpl(c: Context {type PrefixType = MyLogger})(msg: c.Expr[String]) = { //: c.Expr[Unit] = {
+    import c.universe._
+    import c.universe.Flag._
+
+    val t = c.enclosingClass.symbol
+//    println("compile type="+t)
+
+//    c.Expr[Unit](Apply(Ident(newTermName("println")), List(Literal(Constant(t.toString+": ")))))
+//    val msgAst = Apply(Select(Ident(x), newTermName("$plus")), List(Literal(Constant(2))))
+    val msgAst = Apply(Select(Literal(Constant(t.toString)), newTermName("$plus")), List(msg.tree))
+    c.Expr[Unit](Apply(Ident(newTermName("println")), List(msgAst)))
+   }
+
+    def logImpl2(c: Context {type PrefixType = MyLogger})(msg: c.Expr[String]) = {
     val t = c.enclosingClass.symbol
     println("compile type="+t)
 //    c.prefix
