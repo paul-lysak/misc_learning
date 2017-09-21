@@ -4,10 +4,6 @@
 #define GREEN_PIN 11
 #define BLUE_PIN 12
 
-//int br = 0;
-//int bg = 0;
-//int bb = 0;
-
 void setup() {
   Serial.begin(9600);
   pinMode(RED_PIN, OUTPUT);
