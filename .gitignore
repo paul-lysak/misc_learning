@@ -2,3 +2,5 @@
 *.swp
 *.beam
 *.dump
+target/
+.idea
