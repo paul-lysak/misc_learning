@@ -14,9 +14,11 @@ object SampleMain1 {
   def main(args: Array[String]): Unit = {
     println("Hi there")
 
+    helloWorldService.run
 //    val stream = BlazeBuilder[IO].bindHttp(8080, "localhost").mountService(helloWorldService, "/").serve
     val builder = BlazeBuilder[IO].bindHttp(8080, "localhost").mountService(helloWorldService, "/").start
-    builder.unsafeRunSync()
+    val server = builder.unsafeRunSync()
+    server.shutdown
     Thread.sleep(10000)
   }
 }
