@@ -1,5 +1,7 @@
 package com.aimplicits.cats
 
+import cats.Id
+import cats.arrow.Arrow
 import cats.data.{Kleisli, Reader}
 import org.scalatest.{Matchers, OptionValues, WordSpecLike}
 import cats.implicits._
@@ -49,7 +51,18 @@ class SampleKleisliSpec extends WordSpecLike with Matchers with OptionValues {
       val r1 = Reader((s: String) => s.toInt)
       val r2 = r1.flatMap(i => Reader((s: String) => s"$s transformed to $i"))
       println("r2(1)=" + r2.run("1"))
+    }
 
+    "run the Arrow" in {
+      val parse: String => Int = _.toInt
+      val triple: Int => Int = _ * 3
+
+      val parseAndTriple = parse >>> triple
+      val pAt1 = Arrow[Function1].lift(parseAndTriple)
+//      val pAt2: Arrow[Function1] = Arrow[Function1].lift(parseAndTriple)
+
+      println("PaT(2)="+ parseAndTriple("2"))
+      println("PaT1(2)="+ pAt1("2"))
     }
   }
 }
