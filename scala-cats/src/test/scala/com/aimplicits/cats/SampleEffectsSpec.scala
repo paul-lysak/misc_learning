@@ -36,6 +36,30 @@ class SampleEffectsSpec extends WordSpecLike with Matchers with OptionValues {
       eff2.unsafeRunSync()
       println(s"hi there")
     }
+
+    "handle the exception" in {
+      val eff1 = IO {
+        println("Create a number")
+        2
+      }
+
+      val eff2 = eff1.map {n =>
+        if(n == 2) {
+          println("Fail to map a number")
+          sys.error("Something went wrong")
+        }
+        else {
+          println("Multiply a number")
+          n * 2
+        }
+      }
+
+
+      val res1 = eff1.attempt.unsafeRunSync()
+      println("res1="+res1) //Right(2)
+      val res2 = eff2.attempt.unsafeRunSync()
+      println("res2="+res2) //Left(RuntimeException(...))
+    }
   }
 }
 
