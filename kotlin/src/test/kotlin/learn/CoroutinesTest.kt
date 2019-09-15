@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 
+//@UseExperimental(kotlinx.coroutines.ObsoleteCoroutinesApi::class)
 class CoroutinesTest {
     @Test
     fun testFirstExample() {
@@ -106,7 +107,6 @@ class CoroutinesTest {
                 for (i in 1..5) {
                     delay(100)
                     //Suspends until a new value is available. Returns null i fchannel is closed
-                    @UseExperimental(kotlinx.coroutines.ObsoleteCoroutinesApi::class)
                     val rx = ch.receiveOrNull()
                     println("Received: $rx")
                 }
@@ -117,19 +117,19 @@ class CoroutinesTest {
     @Test
     fun testChannelProduce() {
         //TODO: find out if it's possible to declare such functions without extending CoroutineScope
-        @UseExperimental(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+//        @UseExperimental(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
         fun CoroutineScope.produceMessages(n: Int): ReceiveChannel<String> = produce {
             for (x in 1..n) send("tx: $x")
         }
 
-        @UseExperimental(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+//        @UseExperimental(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
         fun CoroutineScope.processMessages(messages: ReceiveChannel<String>): ReceiveChannel<String> = produce {
             for (m in messages) send("$m - processed")
         }
 
         runBlocking {
             val messages = processMessages(produceMessages(3))
-            @UseExperimental(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+//            @UseExperimental(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
             messages.consumeEach { println("Consumed: $it") }
         }
     }
